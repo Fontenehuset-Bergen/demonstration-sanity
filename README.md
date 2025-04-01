@@ -114,3 +114,12 @@ Når du har lagret disse filene kan du starte sanity studio ved å kjøre og bes
 ```console
 npm run dev
 ```
+
+# Mer info om schemas
+wip
+
+# Ekstra funksjonalitet: components / plugins
+Av og til møter man på situasjoner der du trenger funksjonalitet som ikke er innebygget i Sanity Studio, da har man muligheten til enten å lage sine egene [React komponenter](https://www.sanity.io/docs/studio-components) eller å installere [plugins](https://www.sanity.io/plugins)
+
+# Hvordan bruker jeg data i min app?
+wip
