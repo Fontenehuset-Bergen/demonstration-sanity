@@ -31,12 +31,86 @@ Hvis du valgte nytt prosjekt må du også fortelle sanity hva hoved databasen di
 
 ![alt text](docs/sanity-project-dataset.png)
 
+Sanity Studio krever at du installerer det i en tom mappe, hvis den aktive folderen din inneholder andre filer må du lage en ny tom mappe. Du trenger ikke å skrive noe inn i dette steget, du kan bare trykke `enter` og bruke default
 
+![alt text](docs/sanity-project-path.png)
+
+Videre får du valget om å bruke forhåndsinstillinger for innholdet ditt, vi kommer til å begynne med `clean project` aka et tomt prosjekt
+
+![alt text](docs/sanity-project-presets.png)
+
+Siste valget er om du ønsker å bruke typescript og valg av package manager, her bruker vi som regel `npm`
+
+![alt text](docs/sanity-project-packages.png)
 
 Etter du har kjørt disse kommandoenene så vill du se at mange dependencies og mapper blir opprettet (Fil forklaring [her](https://www.sanity.io/docs/project-structure)). Sanity Studio genererer også en React prosjekt som vi gjør at vi kan redigere data på en enklere måte i nettleseren.
+
 Det er mulig å kunne sende [API requests](https://www.sanity.io/docs/http-api) for å lage, lese, endre og slette (CRUD), men vi kommer til å forholde oss til websiden for all redigering i dette eksempelet.
 
-Etter du har installert Sanity Studio får du også tilgang til [Sanity CLI](https://www.sanity.io/docs/cli)
+Etter du har installert Sanity Studio får du også tilgang til [Sanity CLI](https://www.sanity.io/docs/cli) i terminalen / kommandolinjen
 
 > [!NOTE]
 > Du kan finne mer grunndig informasjon om installerings prosessen på [sanity.io/docs](https://www.sanity.io/docs/installation)
+
+# Hvordan sitter man opp skjema for data
+> [!NOTE]
+> Du kan finne mer grunndig informasjon om planlegging av database modeller i sanity på [sanity.io/content-modeling](https://www.sanity.io/content-modeling)
+
+Etter du har installert Sanity Studio fra seksjonen over kan vi begynne å definere et nytt `schema` (database-model). Tilgjengelige felter kan du finne på [sanity.io/docs/schemas-and-forms](https://www.sanity.io/docs/schemas-and-forms)
+
+```js
+// ./schemas/example.ts
+export default {
+  name: 'example',
+  title: 'Eksempel person skjema',
+  type: 'document',
+  fields: [
+    {
+      name: 'name',
+      title: 'Navn',
+      type: 'string',
+    },
+    {
+      name: 'age',
+      title: 'Alder',
+      type: 'number',
+    }
+  ]
+}
+```
+
+Når du har lagd et nytt skjema må vi inkludere dette i `schemaTypes\index.ts` for at Sanity Studio skal importere dette riktig.
+
+```ts
+// ./schemas/index.ts
+import example from "./example"
+
+export const schemaTypes = [
+  example
+]
+```
+Hvis du lurer på hvor disse filene blir brukt så er det i `sanity.cli.ts` og `sanity.config.ts` slik at Studio tilgang
+```ts
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import { schemaTypes } from './schemaTypes'
+
+export default defineConfig({
+  name: 'default',
+  title: 'demonstration-sanity',
+
+  projectId: 'r4fonqs3',
+  dataset: 'production',
+
+  plugins: [structureTool(), visionTool()],
+
+  schema: {
+    types: schemaTypes, // <-- her blir skjema importert
+  },
+})
+```
+Når du har lagret disse filene kan du starte sanity studio ved å kjøre og besøke ditt studio i nettleseren på http://localhost:3333/
+```console
+npm run dev
+```
