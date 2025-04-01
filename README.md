@@ -1,2 +1,0 @@
-# Sanity studio
-wip
