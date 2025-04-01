@@ -118,6 +118,9 @@ npm run dev
 # Mer info om schemas
 wip
 
+# Mer info om config
+wip
+
 # Ekstra funksjonalitet: components / plugins
 Av og til møter man på situasjoner der du trenger funksjonalitet som ikke er innebygget i Sanity Studio, da har man muligheten til enten å lage sine egene [React komponenter](https://www.sanity.io/docs/studio-components) eller å installere [plugins](https://www.sanity.io/plugins)
 
