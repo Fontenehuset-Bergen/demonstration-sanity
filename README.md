@@ -116,7 +116,26 @@ npm run dev
 ```
 
 # Hvordan fyller jeg inn data?
-wip
+Når du har kjørt kommandoen `npm run dev` får du tilgang til Sanity Studio sin react nettside i nettleseren din, her inne kan du ligge til data som skal bli brukt senere.
+
+![alt text](docs/sanity-react-new-document.png)
+
+![alt text](docs/sanity-react-input.png)
+
+Vi kan teste at data'en ble lagt inn riktig med å trykke på `vision` knappen øverst i midten på web-siden. Her skriver vi inn `GROQ` strenger for den data vi ønsker å se.
+
+> [!NOTE]
+> Husk å trykk på publish knappen hvis du ønsker at dokumentet skal være tilgjengelig i appen. Drafts er kun synlig i [vision](https://www.sanity.io/docs/the-vision-plugin) mode.
+
+![alt text](docs/sanity-react-vision.png)
+
+I bildet over kan du se resultatet fra mitt søk, som du sikkert ligger merke til får vi tilbake mange ekstra felter som begynner med understrek. Disse feltene er med for logistikken sin del, vi kan f.eks bruke `_createdAt` feltet for å finne ut når dette dokumentet ble lagt til i sanity, dette kan være brukbart hvis du f.eks har en blog som skal vise når en artikkel ble skrevet. 
+
+> [!WARNING]
+> Vi skal ikke legge til feltene som begynner med `_` (understrek) i schema filen, dette blir håndtert automatisk av Sanity når vi ligger inn data.
+
+
+
 
 
 # Hvordan bruker jeg data i min app?
@@ -145,16 +164,12 @@ Denne forespørselen returer en array med objekter som vi kan bruke i applikasjo
 ]
 ```
 
-
 > [!NOTE]
 > Du kan finne cheat sheet for GROQ [her](https://www.sanity.io/docs/query-cheat-sheet), her finner du mange eksempler på hvordan du kan skrive søke strengen.
 
-# Mer info om schemas
-wip
-
-# Mer info om config
-wip
-
 # Ekstra funksjonalitet: components / plugins
-Av og til møter man på situasjoner der du trenger funksjonalitet som ikke er innebygget i Sanity Studio, da har man muligheten til enten å lage sine egene [React komponenter](https://www.sanity.io/docs/studio-components) eller å installere [plugins](https://www.sanity.io/plugins)
+Av og til møter man på situasjoner der du trenger funksjonalitet som ikke er innebygget i Sanity Studio, da har man muligheten til enten å lage sine egene [React komponenter](https://www.sanity.io/docs/studio-components) eller å installere [plugins](https://www.sanity.io/plugins). Dette er litt mer avansert og utenfor dagens undervisning, men linkene over gir innsyn i hvordan dette kan fungere.
 
+Et eksempel på at man må lage et react komponent er når jeg måtte lage en tag input på et artikkel schema jeg satte opp. Vanlig input av string array fungerer dårlig i dette tilfellet så jeg måtte skrive et komponent som hadde mulighet for autocomplete og previews av eksiterende tags (string).
+
+I de fleste tilfeller så eksisterer det allerede komponenter eller plugins for det du trenger, det er bare å søke litt på [sanity.io/plugins](https://www.sanity.io/plugins) :smile:
