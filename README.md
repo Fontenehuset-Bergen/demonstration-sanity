@@ -53,10 +53,10 @@ Etter du har installert Sanity Studio får du også tilgang til [Sanity CLI](htt
 > Du kan finne mer grunndig informasjon om installerings prosessen på [sanity.io/docs](https://www.sanity.io/docs/installation)
 
 # Hvordan sitter man opp skjema for data
+Etter du har installert Sanity Studio fra seksjonen over kan vi begynne å definere et nytt `schema` (database-model). Tilgjengelige felter kan du finne på [sanity.io/docs/schemas-and-forms](https://www.sanity.io/docs/schemas-and-forms)
+
 > [!NOTE]
 > Du kan finne mer grunndig informasjon om planlegging av database modeller i sanity på [sanity.io/content-modeling](https://www.sanity.io/content-modeling)
-
-Etter du har installert Sanity Studio fra seksjonen over kan vi begynne å definere et nytt `schema` (database-model). Tilgjengelige felter kan du finne på [sanity.io/docs/schemas-and-forms](https://www.sanity.io/docs/schemas-and-forms)
 
 ```js
 // ./schemas/example.ts
@@ -118,8 +118,36 @@ npm run dev
 # Hvordan fyller jeg inn data?
 wip
 
+
 # Hvordan bruker jeg data i min app?
-wip
+Det første vi trenger å gjøre for å hente ut informasjon er å enten sitte opp en http fetch streng, eller bruke en forhåndsinstallert client. I tidligere undervisninger har vi satt opp expo til å fungere på telefonene våres, vi kan bruke den som eksempel.
+
+I appen vår bruker vi et javascript som benytter `sanityClient()` til å sitte opp en connection til sanity.io for å hente ut informasjon. Etter vi har definert hvilket Sanity prosjekt vi ønsker å bruke kan vi bruke den innebygde funksjonen `sanityClient.fetch(<Din groq streng>)` for å laste inn data.
+
+Når vi skal hente ut data fra Sanity gjør vi det via API calls hvor vi bruker et [query språk](https://en.wikipedia.org/wiki/Query_language) som heter `GROQ` (les mer [her](https://www.sanity.io/docs/how-queries-work)), dette språket ligner [GraphQL](https://graphql.org/), men i string format.
+
+Når du henter ut informasjon så må du definere det du ønsker å få tilbake. Hvis jeg ønsker å hente ut eksempel fra `schemaTypes/example.ts` som vi satte opp tidligere ville jeg skrevet
+
+```groq
+*[_type == "example"] { name, age }
+```
+Denne forespørselen returer en array med objekter som vi kan bruke i applikasjonen.
+```json
+[
+  {
+    "name": "Atle Jhonny",
+    "age": 69
+  },
+  {
+    "name": "Lars lunde den fjerde",
+    "age": 14
+  }
+]
+```
+
+
+> [!NOTE]
+> Du kan finne cheat sheet for GROQ [her](https://www.sanity.io/docs/query-cheat-sheet), her finner du mange eksempler på hvordan du kan skrive søke strengen.
 
 # Mer info om schemas
 wip
